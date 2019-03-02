@@ -41,7 +41,7 @@ class _CashFieldState extends State<CashField> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: _controller = TextEditingController(
-        text: widget.fieldType == AmountType.dollars ? '${Payment.of(context).dollars}' : '${Payment.of(context).cents}',
+        text: widget.fieldType == AmountType.dollars ? '${Payment.of(context).dollars}' : '${Payment.of(context).cents}'.padLeft(2,'0'),
       ),
       keyboardType: TextInputType.number,
       focusNode: _focus,
