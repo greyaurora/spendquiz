@@ -1,8 +1,10 @@
-# spend_quiz
+# Spend Quiz!
 
-Spend quiz
+A lightweight, gamified budgeting app.
 
-## Getting Started
+Mostly just a demo project for messing around with Flutter and SQLite.
 
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+Still to-do:
+* Testing
+* Custom Date Range selection
+* Customisable spending categories
