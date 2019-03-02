@@ -2,18 +2,23 @@ import 'package:flutter/material.dart';
 
 enum Accuracy {
   perfect, // spot-on
-  great, // up to 10%
-  close, // up to 25%
-  bad, // up to 50%
+  great, // up to 10%, or <$1 for small amounts
+  close, // up to 25%, or <$2.50 for small amounts
+  bad, // up to 50%, or <$5 for small amounts
   awful, // upwards of that
 }
 
+/// Return a measure of the accuracy of the guess.
+/// For large amounts (over 10) use a percentage, as being relatively close is what matters.
+/// For small amounts, being 5 or 10c off doesn't really matter, so limit it to more specific ranges.
 Accuracy measureAccuracy(double guess, double result) {
   int diff;
 
-  diff = (result < 10)
-      ? (guess * 10).truncate()
-      : (((guess - result) / result) * 100).truncate().abs();
+  if (guess > 10) {
+    diff = (((guess - result) / result) * 100).truncate().abs();
+  } else {
+    diff = (((guess - result) / 10) * 100).truncate().abs();
+  }
 
   if (diff < 1) return Accuracy.perfect;
 
@@ -63,8 +68,7 @@ String accuracyText(Accuracy acc, double guess, double result) {
 
   bool over = (result - guess) < 0;
 
-  if (over)
-    return 'less than you thought!';
+  if (over) return 'less than you thought!';
 
   return 'more than you thought!';
 }
